@@ -1,6 +1,7 @@
 import React from "react"
 import axios from "axios"
-import { Button,Modal,Input,message,Menu, Dropdown,Avatar} from 'antd';
+import { Button,Modal,Input,message,Menu, Dropdown,Avatar,Badge} from 'antd';
+import {Link} from "react-router-dom"
 class Header extends React.Component{
     constructor(){
         super()
@@ -9,15 +10,17 @@ class Header extends React.Component{
             visible:false,
             input:"c34822ec-4ad8-4a71-b5b0-718e5b5b3a16",
             confirmLoading:false,
-            user:null
+            user:null,
+            information:null
         }
     }
     handleOk(){
       this.setState({confirmLoading:true})
       let accesstoken=this.state.input.trim()
+
       axios.post(`https://cnodejs.org/api/v1/accesstoken`,{accesstoken})
       .then(res=>{
-        message.success('登录成功'),
+        message.success('登录成功')
         // console.log(res)
         this.setState({
           isLogin:true,
@@ -25,8 +28,9 @@ class Header extends React.Component{
           input:"",
           confirmLoading:false,
           user:res.data
-        }),
+        })
         sessionStorage.accesstoken=accesstoken
+        this.getMessage(accesstoken)
       })
       .catch(err=> {
         message.error('请重新登录'),
@@ -35,6 +39,12 @@ class Header extends React.Component{
           input:""
         })
       })
+    }
+
+    getMessage(accesstoken){
+        axios.get(`https://cnodejs.org/api/v1/message/count?accesstoken=${accesstoken}`)
+        .then(res=>this.setState({information:res.data.data}))
+        .catch(err=>message.error("没有获取消息"))
     }
 
     handleOut(){
@@ -53,7 +63,10 @@ class Header extends React.Component{
             <h3>{user.loginname}</h3>
           </Menu.Item>
           <Menu.Item>
-            <a href="#">个人中心</a>
+            <Link to="/message">消息中心</Link>
+          </Menu.Item>
+          <Menu.Item>
+            <Link to="/">个人中心</Link>
           </Menu.Item>
           <Menu.Item>
             <Button type="danger" onClick={this.handleOut.bind(this)} >登出</Button>
@@ -62,12 +75,14 @@ class Header extends React.Component{
       );
         return(
             <header className="header">
-                <h1>cnode</h1>
+                <Link to="/"><h1>cnode</h1></Link>
 
                 {
                     isLogin?
                     <Dropdown overlay={menu}>
-                      <Avatar src={user.avatar_url} />
+                      <Badge count={0} showZero>
+                        <Avatar src={user.avatar_url} />
+                      </Badge>
                     </Dropdown>
                     :
                  <div>

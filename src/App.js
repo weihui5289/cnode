@@ -3,16 +3,20 @@ import{HashRouter,Route} from "react-router-dom"
 import Header from "./commount/Header"
 import Footer from "./commount/Footer"
 import Home from "./commount/Home"
-
+import Topic from "./commount/Topic"
+import Message from "./commount/Message"
 class App extends React.Component{
     render(){
         return(
             <HashRouter>
                 <div>
                     <Header />
+                    <div style={{minHeight:"300px"}}>
+                        <Route path="/" exact component={Home} />
+                        <Route path="/topic/:id" component={Topic} />
+                        <Route path="/message" component={Message} />
+                    </div>
 
-                    <Route path="/" component={Home} />
-                    {/*<Route path="/message" component={Message} />*/}
                     <Footer />
                 </div>
 
