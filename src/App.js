@@ -5,6 +5,7 @@ import Footer from "./commount/Footer"
 import Home from "./commount/Home"
 import Topic from "./commount/Topic"
 import Message from "./commount/Message"
+import People from "./commount/People"
 class App extends React.Component{
     render(){
         return(
@@ -15,6 +16,7 @@ class App extends React.Component{
                         <Route path="/" exact component={Home} />
                         <Route path="/topic/:id" component={Topic} />
                         <Route path="/message" component={Message} />
+                        <Route path="/user" component={People} />
                     </div>
 
                     <Footer />

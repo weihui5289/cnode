@@ -2,6 +2,7 @@ import React from "react"
 import axios from "axios"
 import {message, Spin} from 'antd';
 import{ Link } from "react-router-dom"
+import moment from 'moment'
 class Message extends React.Component{
    constructor(){
         super()
@@ -22,7 +23,7 @@ class Message extends React.Component{
 
     render(){
         let {data}=this.state
-        console.log(data)
+        // console.log(data)
         return(
         <div>
             {
@@ -34,6 +35,7 @@ class Message extends React.Component{
                           {item.author.loginname}在话题
                           <Link to={`/topic/${item.topic.id}`}>{item.topic.title}</Link>
                           {item.type==="reply"?"回复":"@"}了你
+                          <span style={{float: 'right'}}>{moment(item.create_at).fromNow()}</span>
 
                         </p>
                         ))}
@@ -43,6 +45,8 @@ class Message extends React.Component{
                           {item.author.loginname}在话题
                           <Link to={`/topic/${item.topic.id}`}>{item.topic.title}</Link>
                           {item.type==="reply"?"回复":"@"}了你
+                           <span style={{float: 'right'}}>{moment(item.create_at).fromNow()}</span>
+
                         </p>
                         ))}
                 </div>

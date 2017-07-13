@@ -1,6 +1,6 @@
     .header{
         display:flex;
-        background-color:#7dbcea;
+        background-color:#444444;
         height: 80px;
         justify-content: space-between;
         align-items: center;
@@ -18,7 +18,7 @@
           padding:5px 0;
 
        }
-       .topic>img{
+       .topic img{
           width: 40px;
           height: 40px;
           border-radius:50%;
@@ -98,4 +98,25 @@
       }
       .all-right{
         flex-grow:1;
+      }
+
+      .showcard{
+          font-size:16px;
+          padding:30px 15px;
+      }
+
+      .showcard img{
+        display: block;
+        width: 30px;
+        height: 30px;
+
+      }
+
+      .showp{
+
+        display:flex;
+        justify-content:space-between;
+        margin:20px 0;
+         align-items:center;
+
       }

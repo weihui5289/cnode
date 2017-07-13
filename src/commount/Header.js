@@ -2,6 +2,7 @@ import React from "react"
 import axios from "axios"
 import { Button,Modal,Input,message,Menu, Dropdown,Avatar,Badge} from 'antd';
 import {Link} from "react-router-dom"
+import img from "../images/2222_01.png"
 class Header extends React.Component{
     constructor(){
         super()
@@ -11,7 +12,7 @@ class Header extends React.Component{
             input:"c34822ec-4ad8-4a71-b5b0-718e5b5b3a16",
             confirmLoading:false,
             user:null,
-            information:null
+            messageCount: null
         }
     }
     handleOk(){
@@ -43,7 +44,7 @@ class Header extends React.Component{
 
     getMessage(accesstoken){
         axios.get(`https://cnodejs.org/api/v1/message/count?accesstoken=${accesstoken}`)
-        .then(res=>this.setState({information:res.data.data}))
+        .then(res=>this.setState({messageCount:res.data.data}))
         .catch(err=>message.error("没有获取消息"))
     }
 
@@ -55,7 +56,7 @@ class Header extends React.Component{
         sessionStorage.removeItem("accesstoken")
     }
     render(){
-        let {isLogin,visible,input,confirmLoading,user} = this.state
+        let {isLogin,visible,input,confirmLoading,user,messageCount} = this.state
         // console.log(user)
         const menu = !isLogin? <p>123</p> : (
         <Menu>
@@ -66,7 +67,7 @@ class Header extends React.Component{
             <Link to="/message">消息中心</Link>
           </Menu.Item>
           <Menu.Item>
-            <Link to="/">个人中心</Link>
+            <Link to={{pathname:`/user/${user.loginname}`,state:user.loginname}}>个人中心</Link>
           </Menu.Item>
           <Menu.Item>
             <Button type="danger" onClick={this.handleOut.bind(this)} >登出</Button>
@@ -75,12 +76,12 @@ class Header extends React.Component{
       );
         return(
             <header className="header">
-                <Link to="/"><h1>cnode</h1></Link>
+                <Link to="/"><img src={img} alt=""/></Link>
 
                 {
                     isLogin?
                     <Dropdown overlay={menu}>
-                      <Badge count={0} showZero>
+                      <Badge count={messageCount}>
                         <Avatar src={user.avatar_url} />
                       </Badge>
                     </Dropdown>

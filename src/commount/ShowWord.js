@@ -1,12 +1,13 @@
 import React from "react"
 import { Spin } from 'antd';
-import{Link} from "react-router-dom"
-import {url} from '../config'
+import{NavLink,Link} from "react-router-dom"
 
 class ShowWord extends React.Component{
+
     render(){
-        // console.log(this.props.data)
+
         let {data}=this.props;
+
         let tabs={
             ask:"问答",
             job:"招聘",
@@ -23,7 +24,7 @@ class ShowWord extends React.Component{
                 data.map(item=>(
 
                    <div key={item.id} className="topic">
-                        <img src= {item.author.avatar_url} alt="avatar_url" />
+                        <NavLink to={{pathname:`/user/${item.author.loginname}`,state:item.author.loginname}}><img src={item.author.avatar_url} alt="avatar_url" /></NavLink>
                         <div>
                             <h3 title={item.title}><Link to={`/topic/${item.id}`}>{item.title}</Link></h3>
                             <span className="tab">{item.top?"置顶":item.good?"精华":tabs[item.tab] }</span>

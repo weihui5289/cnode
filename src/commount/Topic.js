@@ -1,5 +1,5 @@
 import React from "react"
-import{ Link } from "react-router-dom"
+import{ Link,NavLink } from "react-router-dom"
 import axios from "axios"
 import {url} from '../config'
 import {message,Card,Avatar,BackTop,Input,Button,Icon,Modal} from 'antd';
@@ -91,6 +91,7 @@ class Topic extends React.Component{
                             <h1 style={{textAlign:"center"}}>{data.title}</h1>
                         <div className="topic-text">
                              <Avatar src={data.author.avatar_url} />
+
                             <span style={{color:"#2E7D32",marginRight:"18px"}}>回复量：<strong />{data.reply_count}</span>
                             <span style={{color:"#FF9800",marginRight:"18px"}}>访问量：  <strong /> {data.visit_count}</span>
                             <span style={{color:"#3F51B5"}}>时间：{data.create_at}</span>
@@ -108,7 +109,8 @@ class Topic extends React.Component{
                             {
                                 data.replies.map((item,index)=>
                                 <div key={item.id}  className="all">
-                                    <Avatar src={item.author.avatar_url} style={{marginRight:"20px"}} />
+
+                                    <NavLink to={{pathname:`/user/${item.author.loginname}`,state:item.author.loginname}}><Avatar src={item.author.avatar_url} style={{marginRight:"20px"}} /></NavLink>
 
 
                                 <div className="all-right">
