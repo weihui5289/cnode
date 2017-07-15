@@ -12,6 +12,7 @@ class ShowWord extends React.Component{
             ask:"问答",
             job:"招聘",
             share:"分享"
+
         }
         return(
             <div className="alltopics">

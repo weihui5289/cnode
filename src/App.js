@@ -6,7 +6,11 @@ import Home from "./commount/Home"
 import Topic from "./commount/Topic"
 import Message from "./commount/Message"
 import People from "./commount/People"
+import Collect from "./commount/Collect"
 class App extends React.Component{
+    componentWillMount(){
+        sessionStorage.removeItem('accesstoken')
+    }
     render(){
         return(
             <HashRouter>
@@ -16,7 +20,8 @@ class App extends React.Component{
                         <Route path="/" exact component={Home} />
                         <Route path="/topic/:id" component={Topic} />
                         <Route path="/message" component={Message} />
-                        <Route path="/user" component={People} />
+                        <Route path="/user/:loginname" component={People} />
+                        <Route path="/topic_collect/:loginname" component={Collect} />
                     </div>
 
                     <Footer />

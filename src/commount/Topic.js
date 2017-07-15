@@ -15,6 +15,8 @@ class Topic extends React.Component{
             visible:false,
             reply:"",
             replyAll:null,
+            collect:false,
+            word:[]
 
         }
     }
@@ -50,7 +52,38 @@ class Topic extends React.Component{
             this.getPost()
            })
            .catch(err=>message.error("点赞失败"))
-    }
+       }
+
+     handleCollect(){
+          let accesstoken=sessionStorage.accesstoken
+          let topic_id =this.props.match.params.id
+          if(accesstoken){
+            axios.post(`${url}/topic_collect/collect`,{accesstoken,topic_id})
+            .then(res=>{
+              message.success("收藏成功")
+              this.setState({collect:true});
+            })
+            .catch(err =>message.error("请再次请求"))
+          }else{
+            message.error("请先登录在请求")
+          }
+       }
+
+      handleCancel(){
+        let accesstoken=sessionStorage.accesstoken
+          let topic_id =this.props.match.params.id
+          if(accesstoken){
+            axios.post(`${url}/topic_collect/de_collect`,{accesstoken,topic_id})
+            .then(res=>{
+              message.success("取消收藏")
+              this.setState({collect:false,word: this.state.data.filter(item=>item.id!==topic_id)});
+            })
+            .catch(err =>message.error("请再次请求"))
+          }else{
+            message.error("请先登录在请求")
+          }
+       }
+
     handleCommit(type){
         if(sessionStorage.accesstoken){
             var accesstoken1=sessionStorage.accesstoken
@@ -77,9 +110,10 @@ class Topic extends React.Component{
         }
 
     }
+
     render(){
         // console.log(this.props)
-        let {data,communt,visible,reply,replyAll}=this.state
+        let {data,communt,visible,reply,replyAll,collect,word}=this.state
         // console.log(data)
         return(
             <div>
@@ -95,6 +129,8 @@ class Topic extends React.Component{
                             <span style={{color:"#2E7D32",marginRight:"18px"}}>回复量：<strong />{data.reply_count}</span>
                             <span style={{color:"#FF9800",marginRight:"18px"}}>访问量：  <strong /> {data.visit_count}</span>
                             <span style={{color:"#3F51B5"}}>时间：{data.create_at}</span>
+
+                            <Button onClick={!collect?this.handleCollect.bind(this):this.handleCancel.bind(this)} style={{marginTop:'10px',marginLeft:"50px"}} type="primary">{collect?"取消收藏":"收藏"}</Button>
                         </div>
 
 

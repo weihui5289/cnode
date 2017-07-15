@@ -3,6 +3,7 @@ import axios from "axios"
 import { Button,Modal,Input,message,Menu, Dropdown,Avatar,Badge} from 'antd';
 import {Link} from "react-router-dom"
 import img from "../images/2222_01.png"
+import {url} from '../config.js'
 class Header extends React.Component{
     constructor(){
         super()
@@ -55,6 +56,13 @@ class Header extends React.Component{
         })
         sessionStorage.removeItem("accesstoken")
     }
+    handleClick(a){
+      let loginname=a
+      axios.get(`${url}/user/${loginname}`)
+                .then(res =>this.setState({data:res.data.data}))
+                .catch( err => message.error('请重新请求头像数据') )
+
+    }
     render(){
         let {isLogin,visible,input,confirmLoading,user,messageCount} = this.state
         // console.log(user)
@@ -67,7 +75,10 @@ class Header extends React.Component{
             <Link to="/message">消息中心</Link>
           </Menu.Item>
           <Menu.Item>
-            <Link to={{pathname:`/user/${user.loginname}`,state:user.loginname}}>个人中心</Link>
+            <Link to={{pathname:`/user/${user.loginname}`,state:user.loginname}} onClick={this.handleClick.bind(this,user.loginname)}>个人中心</Link>
+          </Menu.Item>
+          <Menu.Item>
+            <Link to={{pathname:`/topic_collect/${user.loginname}`,state:user.loginname}}>收藏话题</Link>
           </Menu.Item>
           <Menu.Item>
             <Button type="danger" onClick={this.handleOut.bind(this)} >登出</Button>
