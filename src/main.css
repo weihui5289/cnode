@@ -72,12 +72,12 @@
         align-items:center;
         margin:10px 5px;
         padding-bottom:10px;
-        border-bottom:1px solid #eee;
+        border-bottom:1px solid #ccc;
 
       }
 
       .content-word{
-        line-height:2;
+        line-height:2.3;
       }
 
       .content-word img{
@@ -136,6 +136,6 @@
       .collect-2{
          display:flex;
          justify-content:space-between;
-         margin-left:10px;
+         margin-left:16px;
 
       }
