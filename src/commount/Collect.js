@@ -40,12 +40,15 @@ class Collect extends React.Component{
 
                       <div key={item.id} className="collect-show">
                        {/*console.log(item)*/}
-                          <Avatar shape="square" size="large" icon="user" src={item.author.avatar_url} />
+                        <div>
+                            <Avatar shape="square" size="large" icon="user" src={item.author.avatar_url} />
+                        </div>
+
                           &nbsp;&nbsp;&nbsp;&nbsp;
                             <div className="collect-2">
                               <span style={{background:"#64DD17",color:"#fff"}}>{tabs[item.tab]}</span>
                               &nbsp;&nbsp;&nbsp;&nbsp;
-                              <h3 style={{background:"#1DE9B6",color:"#fff"}}>姓名：{item.author.loginname}</h3>
+                              <h3 style={{color:"#fff"}}>姓名：{item.author.loginname}</h3>
                               &nbsp;&nbsp;&nbsp;&nbsp;
                               <span>访问人数：{item.visit_count}</span>
                               &nbsp;&nbsp;&nbsp;&nbsp;

@@ -34,8 +34,6 @@ class People extends React.Component{
                 {
                   data?
                 <div style={{ background: '#ECECEC', padding: '30px' }}>
-
-                    <Card title="个人信息展示" bordered={true} style={{ width:"800px",margin:"0 auto",display:"flex",justifyContent:"center"}}>
                         <img src={data.avatar_url} alt="avatar"/>
                         <div className="showcard">
                             <h3>姓名：{data.loginname}</h3>
@@ -77,7 +75,7 @@ class People extends React.Component{
                             )
                           }
                        </div>
-                    </Card>
+
                 </div>
                 :
                 <div><Spin size="large" /></div>
