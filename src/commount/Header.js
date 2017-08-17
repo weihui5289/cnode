@@ -87,7 +87,7 @@ class Header extends React.Component{
       );
         return(
             <header className="header">
-                <Link to="/"><img src={img} alt=""/></Link>
+                <Link to="/">测试论坛</Link>
 
                 {
                     isLogin?
