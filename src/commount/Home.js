@@ -50,7 +50,7 @@ class Home extends React.Component{
     render(){
         // console.log(this.state.data)
         let {data,tab}=this.state
-        // console.log(data)
+
         return(
         <div>
             <Tabs defaultActiveKey="all" onChange={this.handleChange.bind(this)}>

@@ -25,7 +25,8 @@ class ShowWord extends React.Component{
                 data.map(item=>(
 
                    <div key={item.id} className="topic">
-                        <NavLink to={{pathname:`/user/${item.author.loginname}`,state:item.author.loginname}}><img src={item.author.avatar_url} alt="avatar_url" /></NavLink>
+                        <NavLink  to={{pathname:`/user/${item.author.loginname}`,state:item.author.loginname}}><img src={item.author.avatar_url} alt="avatar_url" />
+                        </NavLink>
                         <div>
                             <h3 title={item.title}><Link to={`/topic/${item.id}`}>{item.title}</Link></h3>
                             <span className="tab">{item.top?"置顶":item.good?"精华":tabs[item.tab] }</span>
